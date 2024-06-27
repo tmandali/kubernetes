@@ -1,0 +1,51 @@
+
+``` bash
+- name: "deploy :: applies the cert-manager.io manifests"
+  ansible.builtin.shell: |
+   kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/{{ cert_manager.version }}/cert-manager.yaml
+   kubectl wait pod --all --for=condition=Ready --namespace=cert-manager --timeout=300s
+
+# - name: "deploy :: cluster-issuer use Let's Encrypt"
+#   ansible.builtin.shell: |
+#     cat <<EOF | kubectl apply -f -
+#     # Dev ClusterIssue
+#     apiVersion: cert-manager.io/v1
+#     kind: ClusterIssuer
+#     metadata:
+#       name: letsencrypt-dev
+#     spec:
+#       selfSigned: {}
+#     ---
+#     # Staging ClusterIssue
+#     apiVersion: cert-manager.io/v1
+#     kind: ClusterIssuer
+#     metadata:
+#       name: letsencrypt-staging
+#     spec:
+#       acme:
+#         server: https://acme-staging-v02.api.letsencrypt.org/directory
+#         email: {{ letsencrypt.email }}
+#         privateKeySecretRef:
+#           name: letsencrypt-staging
+#         solvers:
+#           - http01:
+#               ingress:
+#                 class: nginx
+#     # Production ClusterIssue
+#     ---
+#     apiVersion: cert-manager.io/v1
+#     kind: ClusterIssuer
+#     metadata:
+#       name: letsencrypt-prod
+#     spec:
+#       acme:
+#         server: https://acme-v02.api.letsencrypt.org/directory
+#         email: {{ letsencrypt.email }}
+#         privateKeySecretRef:
+#           name: letsencrypt-prod
+#         solvers:
+#           - http01:
+#               ingress:
+#                 class: nginx
+#     EOF
+```
