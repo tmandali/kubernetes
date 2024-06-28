@@ -6,7 +6,11 @@ Kubernetes'i Ubuntu makinenize yüklemek için aşağıdaki gereksinimleri karş
 - At least 2GB of RAM
 - At least 2 GB of Disk Space
 - A reliable internet connection
-
+``` bash
+ssh-keygen -t ed25519
+ssh-copy-id -i -f ~/.ssh/id_ed25519.pub tmr@k8smaster.mandali.local 
+ssh tmr@k8smaster.mandali.local 
+```
 **Step 1: Disable swap**
 
 Kubernetes, mevcut kaynakların anlaşılmasına dayalı olarak çalışmayı planlar. İş yükleri takas kullanmaya başlarsa Kubernetes'in doğru planlama kararları alması zorlaşabilir. Bu nedenle Kubernetes'i kurmadan önce takasın devre dışı bırakılması önerilir.
