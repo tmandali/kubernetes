@@ -138,10 +138,19 @@ mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
-**Step 9: Optional K9S managent tool instalation on the master node**
+**Step 9: Tools**
+
+K9S managent tool instalation on the master node
 
 https://webinstall.dev/k9s/
 
 ``` bash
 curl -sS https://webi.sh/k9s | sh
+```
+
+Copy remote kube context
+``` bash
+scp -r tmr@192.168.1.117:/home/tmr/.kube .
+cp -r .kube $HOME/
+kubectl get nodes
 ```

@@ -27,8 +27,13 @@ kubectl expose deployment demo
 kubectl create ingress demo-localhost --class=nginx \
   --rule="demo.localdev.me/*=demo:80"
 
+kubectl get svc --namespace=ingress-nginx 
+
+curl --resolve demo.localdev.me:192.168.1.241 http://demo.localdev.me
+
 # Now, forward a local port to the ingress controller:
 kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 8080:80
 
 curl --resolve demo.localdev.me:8080:127.0.0.1 http://demo.localdev.me:8080
+
 ```
